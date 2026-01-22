@@ -1,0 +1,7 @@
+protoc -I=proto \
+    --go_out=. \
+    --go-grpc_out=. \
+    proto/main.proto \
+    proto/students.proto \
+    proto/execs.proto \
+    proto/common.proto \

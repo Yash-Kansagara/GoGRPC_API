@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+// import "validate/validate.proto";
+import "common.proto";
+
+package main;
+
+option go_package = "/proto/gen;grpcapipb";
+
+service ExecService {
+    rpc GetExecs(GetExecsReq) returns (Execs);
+    rpc AddExecs(Execs) returns (Execs);
+    rpc UpdateExecs(Execs) returns(Execs);
+    rpc DeleteExecs (Execs) returns (DeleteExecsResponse);
+    
+    rpc Login(ExecLoginReq) returns (ExecLoginRes);
+    rpc Logout(EmptyReq) returns (ExecLogoutResp);
+    rpc UpdatePassword(ExecUpdatePasswordReq) returns(ExecUpdatePasswordRes);
+    rpc ResetPassword(ExecResetPasswordReq) returns(ConfirmationResp);
+    rpc ForgetPassword(ExecForgetPasswordReq) returns(ConfirmationResp);
+    rpc DeactivateUser(DeactivateUserReq) returns(ConfirmationResp);
+}
+
+//login
+message ExecLoginReq{
+    string username = 1;
+    string password = 2;
+}
+message ExecLoginRes{
+    string token = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+// logout
+message ExecLogoutResp{
+    bool logged_out = 1;
+}
+
+// reset password
+message ExecResetPasswordReq{
+    string new_password = 1;
+    string confirm_password = 2;
+    string reset_code = 3;
+}
+
+// forget password
+message ExecForgetPasswordReq{
+    string email = 1;
+}
+
+// update password
+message ExecUpdatePasswordReq{
+    string id = 1;
+    string current_password = 2;
+    string new_password = 3;
+}
+message ExecUpdatePasswordRes{
+    bool success = 1;
+    string token = 2;
+}
+
+//DeactivateUserReq
+
+message DeactivateUserReq{
+    string username = 1;
+}
+
+// CRUD
+message DeleteExecsResponse{
+    string status = 1;
+    repeated string deleted_id = 2;
+}
+
+message GetExecsReq {
+    Exec exec = 1;
+    repeated SortField sort_by = 2;
+    int32 page_number = 3;
+    int32 page_size = 4;
+}
+
+
+
+// Data
+message Exec {
+    string id  = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string username = 5;
+    string password = 6;
+    string password_changed_at = 7;
+    string user_created_at = 8;
+    string password_reset_token = 9;
+    string password_reset_token_expires = 10;
+    string role = 11;
+    string inactive_status = 12;
+}
+
+message Execs {
+    repeated Exec teachers = 1;
+}
+
+message ExecId{
+    string exec_id = 1;
+}
