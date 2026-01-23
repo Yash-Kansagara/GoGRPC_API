@@ -21,6 +21,50 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type TeacherIds struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TeacherIds    []string               `protobuf:"bytes,1,rep,name=teacher_ids,json=teacherIds,proto3" json:"teacher_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TeacherIds) Reset() {
+	*x = TeacherIds{}
+	mi := &file_main_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TeacherIds) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TeacherIds) ProtoMessage() {}
+
+func (x *TeacherIds) ProtoReflect() protoreflect.Message {
+	mi := &file_main_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TeacherIds.ProtoReflect.Descriptor instead.
+func (*TeacherIds) Descriptor() ([]byte, []int) {
+	return file_main_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *TeacherIds) GetTeacherIds() []string {
+	if x != nil {
+		return x.TeacherIds
+	}
+	return nil
+}
+
 type TeacherId struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TeacherId     string                 `protobuf:"bytes,1,opt,name=teacher_id,json=teacherId,proto3" json:"teacher_id,omitempty"`
@@ -30,7 +74,7 @@ type TeacherId struct {
 
 func (x *TeacherId) Reset() {
 	*x = TeacherId{}
-	mi := &file_main_proto_msgTypes[0]
+	mi := &file_main_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +86,7 @@ func (x *TeacherId) String() string {
 func (*TeacherId) ProtoMessage() {}
 
 func (x *TeacherId) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[0]
+	mi := &file_main_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +99,7 @@ func (x *TeacherId) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeacherId.ProtoReflect.Descriptor instead.
 func (*TeacherId) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{0}
+	return file_main_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *TeacherId) GetTeacherId() string {
@@ -68,14 +112,14 @@ func (x *TeacherId) GetTeacherId() string {
 type DeleteTeacherResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	DeletedId     []string               `protobuf:"bytes,2,rep,name=deleted_id,json=deletedId,proto3" json:"deleted_id,omitempty"`
+	DeletedCount  int32                  `protobuf:"varint,2,opt,name=deleted_count,json=deletedCount,proto3" json:"deleted_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteTeacherResponse) Reset() {
 	*x = DeleteTeacherResponse{}
-	mi := &file_main_proto_msgTypes[1]
+	mi := &file_main_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -87,7 +131,7 @@ func (x *DeleteTeacherResponse) String() string {
 func (*DeleteTeacherResponse) ProtoMessage() {}
 
 func (x *DeleteTeacherResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[1]
+	mi := &file_main_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -100,7 +144,7 @@ func (x *DeleteTeacherResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTeacherResponse.ProtoReflect.Descriptor instead.
 func (*DeleteTeacherResponse) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{1}
+	return file_main_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DeleteTeacherResponse) GetStatus() string {
@@ -110,11 +154,11 @@ func (x *DeleteTeacherResponse) GetStatus() string {
 	return ""
 }
 
-func (x *DeleteTeacherResponse) GetDeletedId() []string {
+func (x *DeleteTeacherResponse) GetDeletedCount() int32 {
 	if x != nil {
-		return x.DeletedId
+		return x.DeletedCount
 	}
-	return nil
+	return 0
 }
 
 type GetTeachersReq struct {
@@ -127,7 +171,7 @@ type GetTeachersReq struct {
 
 func (x *GetTeachersReq) Reset() {
 	*x = GetTeachersReq{}
-	mi := &file_main_proto_msgTypes[2]
+	mi := &file_main_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -139,7 +183,7 @@ func (x *GetTeachersReq) String() string {
 func (*GetTeachersReq) ProtoMessage() {}
 
 func (x *GetTeachersReq) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[2]
+	mi := &file_main_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -152,7 +196,7 @@ func (x *GetTeachersReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTeachersReq.ProtoReflect.Descriptor instead.
 func (*GetTeachersReq) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{2}
+	return file_main_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetTeachersReq) GetTeacher() *Teacher {
@@ -178,7 +222,7 @@ type StudentCount struct {
 
 func (x *StudentCount) Reset() {
 	*x = StudentCount{}
-	mi := &file_main_proto_msgTypes[3]
+	mi := &file_main_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -190,7 +234,7 @@ func (x *StudentCount) String() string {
 func (*StudentCount) ProtoMessage() {}
 
 func (x *StudentCount) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[3]
+	mi := &file_main_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -203,7 +247,7 @@ func (x *StudentCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StudentCount.ProtoReflect.Descriptor instead.
 func (*StudentCount) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{3}
+	return file_main_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *StudentCount) GetCount() int32 {
@@ -227,7 +271,7 @@ type Teacher struct {
 
 func (x *Teacher) Reset() {
 	*x = Teacher{}
-	mi := &file_main_proto_msgTypes[4]
+	mi := &file_main_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -239,7 +283,7 @@ func (x *Teacher) String() string {
 func (*Teacher) ProtoMessage() {}
 
 func (x *Teacher) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[4]
+	mi := &file_main_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -252,7 +296,7 @@ func (x *Teacher) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Teacher.ProtoReflect.Descriptor instead.
 func (*Teacher) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{4}
+	return file_main_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Teacher) GetId() string {
@@ -306,7 +350,7 @@ type Teachers struct {
 
 func (x *Teachers) Reset() {
 	*x = Teachers{}
-	mi := &file_main_proto_msgTypes[5]
+	mi := &file_main_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -318,7 +362,7 @@ func (x *Teachers) String() string {
 func (*Teachers) ProtoMessage() {}
 
 func (x *Teachers) ProtoReflect() protoreflect.Message {
-	mi := &file_main_proto_msgTypes[5]
+	mi := &file_main_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -331,7 +375,7 @@ func (x *Teachers) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Teachers.ProtoReflect.Descriptor instead.
 func (*Teachers) Descriptor() ([]byte, []int) {
-	return file_main_proto_rawDescGZIP(), []int{5}
+	return file_main_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Teachers) GetTeachers() []*Teacher {
@@ -346,14 +390,17 @@ var File_main_proto protoreflect.FileDescriptor
 const file_main_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"main.proto\x12\x04main\x1a\x0estudents.proto\x1a\fcommon.proto\"*\n" +
+	"main.proto\x12\x04main\x1a\fcommon.proto\x1a\x0estudents.proto\"-\n" +
+	"\n" +
+	"TeacherIds\x12\x1f\n" +
+	"\vteacher_ids\x18\x01 \x03(\tR\n" +
+	"teacherIds\"*\n" +
 	"\tTeacherId\x12\x1d\n" +
 	"\n" +
-	"teacher_id\x18\x01 \x01(\tR\tteacherId\"N\n" +
+	"teacher_id\x18\x01 \x01(\tR\tteacherId\"T\n" +
 	"\x15DeleteTeacherResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\n" +
-	"deleted_id\x18\x02 \x03(\tR\tdeletedId\"c\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12#\n" +
+	"\rdeleted_count\x18\x02 \x01(\x05R\fdeletedCount\"c\n" +
 	"\x0eGetTeachersReq\x12'\n" +
 	"\ateacher\x18\x01 \x01(\v2\r.main.TeacherR\ateacher\x12(\n" +
 	"\asort_by\x18\x02 \x03(\v2\x0f.main.SortFieldR\x06sortBy\"$\n" +
@@ -368,12 +415,12 @@ const file_main_proto_rawDesc = "" +
 	"\x05class\x18\x05 \x01(\tR\x05class\x12\x18\n" +
 	"\asubject\x18\x06 \x01(\tR\asubject\"5\n" +
 	"\bTeachers\x12)\n" +
-	"\bteachers\x18\x01 \x03(\v2\r.main.TeacherR\bteachers2\xe4\x02\n" +
+	"\bteachers\x18\x01 \x03(\v2\r.main.TeacherR\bteachers2\xe6\x02\n" +
 	"\x0eTeacherService\x123\n" +
 	"\vGetTeachers\x12\x14.main.GetTeachersReq\x1a\x0e.main.Teachers\x12-\n" +
 	"\vAddTeachers\x12\x0e.main.Teachers\x1a\x0e.main.Teachers\x120\n" +
-	"\x0eUpdateTeachers\x12\x0e.main.Teachers\x1a\x0e.main.Teachers\x12=\n" +
-	"\x0eDeleteTeachers\x12\x0e.main.Teachers\x1a\x1b.main.DeleteTeacherResponse\x12<\n" +
+	"\x0eUpdateTeachers\x12\x0e.main.Teachers\x1a\x0e.main.Teachers\x12?\n" +
+	"\x0eDeleteTeachers\x12\x10.main.TeacherIds\x1a\x1b.main.DeleteTeacherResponse\x12<\n" +
 	"\x19GetStudentsByClassTeacher\x12\x0f.main.TeacherId\x1a\x0e.main.Students\x12?\n" +
 	"\x18GetStudentCountByTeacher\x12\x0f.main.TeacherId\x1a\x12.main.StudentCountB\x16Z\x14/proto/gen;grpcapipbb\x06proto3"
 
@@ -389,33 +436,34 @@ func file_main_proto_rawDescGZIP() []byte {
 	return file_main_proto_rawDescData
 }
 
-var file_main_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_main_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_main_proto_goTypes = []any{
-	(*TeacherId)(nil),             // 0: main.TeacherId
-	(*DeleteTeacherResponse)(nil), // 1: main.DeleteTeacherResponse
-	(*GetTeachersReq)(nil),        // 2: main.GetTeachersReq
-	(*StudentCount)(nil),          // 3: main.StudentCount
-	(*Teacher)(nil),               // 4: main.Teacher
-	(*Teachers)(nil),              // 5: main.Teachers
-	(*SortField)(nil),             // 6: main.SortField
-	(*Students)(nil),              // 7: main.Students
+	(*TeacherIds)(nil),            // 0: main.TeacherIds
+	(*TeacherId)(nil),             // 1: main.TeacherId
+	(*DeleteTeacherResponse)(nil), // 2: main.DeleteTeacherResponse
+	(*GetTeachersReq)(nil),        // 3: main.GetTeachersReq
+	(*StudentCount)(nil),          // 4: main.StudentCount
+	(*Teacher)(nil),               // 5: main.Teacher
+	(*Teachers)(nil),              // 6: main.Teachers
+	(*SortField)(nil),             // 7: main.SortField
+	(*Students)(nil),              // 8: main.Students
 }
 var file_main_proto_depIdxs = []int32{
-	4, // 0: main.GetTeachersReq.teacher:type_name -> main.Teacher
-	6, // 1: main.GetTeachersReq.sort_by:type_name -> main.SortField
-	4, // 2: main.Teachers.teachers:type_name -> main.Teacher
-	2, // 3: main.TeacherService.GetTeachers:input_type -> main.GetTeachersReq
-	5, // 4: main.TeacherService.AddTeachers:input_type -> main.Teachers
-	5, // 5: main.TeacherService.UpdateTeachers:input_type -> main.Teachers
-	5, // 6: main.TeacherService.DeleteTeachers:input_type -> main.Teachers
-	0, // 7: main.TeacherService.GetStudentsByClassTeacher:input_type -> main.TeacherId
-	0, // 8: main.TeacherService.GetStudentCountByTeacher:input_type -> main.TeacherId
-	5, // 9: main.TeacherService.GetTeachers:output_type -> main.Teachers
-	5, // 10: main.TeacherService.AddTeachers:output_type -> main.Teachers
-	5, // 11: main.TeacherService.UpdateTeachers:output_type -> main.Teachers
-	1, // 12: main.TeacherService.DeleteTeachers:output_type -> main.DeleteTeacherResponse
-	7, // 13: main.TeacherService.GetStudentsByClassTeacher:output_type -> main.Students
-	3, // 14: main.TeacherService.GetStudentCountByTeacher:output_type -> main.StudentCount
+	5, // 0: main.GetTeachersReq.teacher:type_name -> main.Teacher
+	7, // 1: main.GetTeachersReq.sort_by:type_name -> main.SortField
+	5, // 2: main.Teachers.teachers:type_name -> main.Teacher
+	3, // 3: main.TeacherService.GetTeachers:input_type -> main.GetTeachersReq
+	6, // 4: main.TeacherService.AddTeachers:input_type -> main.Teachers
+	6, // 5: main.TeacherService.UpdateTeachers:input_type -> main.Teachers
+	0, // 6: main.TeacherService.DeleteTeachers:input_type -> main.TeacherIds
+	1, // 7: main.TeacherService.GetStudentsByClassTeacher:input_type -> main.TeacherId
+	1, // 8: main.TeacherService.GetStudentCountByTeacher:input_type -> main.TeacherId
+	6, // 9: main.TeacherService.GetTeachers:output_type -> main.Teachers
+	6, // 10: main.TeacherService.AddTeachers:output_type -> main.Teachers
+	6, // 11: main.TeacherService.UpdateTeachers:output_type -> main.Teachers
+	2, // 12: main.TeacherService.DeleteTeachers:output_type -> main.DeleteTeacherResponse
+	8, // 13: main.TeacherService.GetStudentsByClassTeacher:output_type -> main.Students
+	4, // 14: main.TeacherService.GetStudentCountByTeacher:output_type -> main.StudentCount
 	9, // [9:15] is the sub-list for method output_type
 	3, // [3:9] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
@@ -428,15 +476,15 @@ func file_main_proto_init() {
 	if File_main_proto != nil {
 		return
 	}
-	file_students_proto_init()
 	file_common_proto_init()
+	file_students_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_main_proto_rawDesc), len(file_main_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
