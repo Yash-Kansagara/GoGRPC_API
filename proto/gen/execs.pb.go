@@ -446,7 +446,7 @@ func (x *DeactivateUserReq) GetUsername() string {
 type DeleteExecsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	DeletedId     []string               `protobuf:"bytes,2,rep,name=deleted_id,json=deletedId,proto3" json:"deleted_id,omitempty"`
+	DeletedCount  int32                  `protobuf:"varint,2,opt,name=deleted_count,json=deletedCount,proto3" json:"deleted_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -488,11 +488,11 @@ func (x *DeleteExecsResponse) GetStatus() string {
 	return ""
 }
 
-func (x *DeleteExecsResponse) GetDeletedId() []string {
+func (x *DeleteExecsResponse) GetDeletedCount() int32 {
 	if x != nil {
-		return x.DeletedId
+		return x.DeletedCount
 	}
-	return nil
+	return 0
 }
 
 type GetExecsReq struct {
@@ -698,7 +698,7 @@ func (x *Exec) GetInactiveStatus() string {
 
 type Execs struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Teachers      []*Exec                `protobuf:"bytes,1,rep,name=teachers,proto3" json:"teachers,omitempty"`
+	Execs         []*Exec                `protobuf:"bytes,1,rep,name=execs,proto3" json:"execs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -733,34 +733,34 @@ func (*Execs) Descriptor() ([]byte, []int) {
 	return file_execs_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *Execs) GetTeachers() []*Exec {
+func (x *Execs) GetExecs() []*Exec {
 	if x != nil {
-		return x.Teachers
+		return x.Execs
 	}
 	return nil
 }
 
-type ExecId struct {
+type ExecIds struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ExecId        string                 `protobuf:"bytes,1,opt,name=exec_id,json=execId,proto3" json:"exec_id,omitempty"`
+	ExecId        []string               `protobuf:"bytes,1,rep,name=exec_id,json=execId,proto3" json:"exec_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ExecId) Reset() {
-	*x = ExecId{}
+func (x *ExecIds) Reset() {
+	*x = ExecIds{}
 	mi := &file_execs_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ExecId) String() string {
+func (x *ExecIds) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExecId) ProtoMessage() {}
+func (*ExecIds) ProtoMessage() {}
 
-func (x *ExecId) ProtoReflect() protoreflect.Message {
+func (x *ExecIds) ProtoReflect() protoreflect.Message {
 	mi := &file_execs_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -772,16 +772,16 @@ func (x *ExecId) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExecId.ProtoReflect.Descriptor instead.
-func (*ExecId) Descriptor() ([]byte, []int) {
+// Deprecated: Use ExecIds.ProtoReflect.Descriptor instead.
+func (*ExecIds) Descriptor() ([]byte, []int) {
 	return file_execs_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *ExecId) GetExecId() string {
+func (x *ExecIds) GetExecId() []string {
 	if x != nil {
 		return x.ExecId
 	}
-	return ""
+	return nil
 }
 
 var File_execs_proto protoreflect.FileDescriptor
@@ -814,11 +814,10 @@ const file_execs_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\"/\n" +
 	"\x11DeactivateUserReq\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\"L\n" +
+	"\busername\x18\x01 \x01(\tR\busername\"R\n" +
 	"\x13DeleteExecsResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\n" +
-	"deleted_id\x18\x02 \x03(\tR\tdeletedId\"\x95\x01\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12#\n" +
+	"\rdeleted_count\x18\x02 \x01(\x05R\fdeletedCount\"\x95\x01\n" +
 	"\vGetExecsReq\x12\x1e\n" +
 	"\x04exec\x18\x01 \x01(\v2\n" +
 	".main.ExecR\x04exec\x12(\n" +
@@ -840,17 +839,17 @@ const file_execs_proto_rawDesc = "" +
 	"\x1cpassword_reset_token_expires\x18\n" +
 	" \x01(\tR\x19passwordResetTokenExpires\x12\x12\n" +
 	"\x04role\x18\v \x01(\tR\x04role\x12'\n" +
-	"\x0finactive_status\x18\f \x01(\tR\x0einactiveStatus\"/\n" +
-	"\x05Execs\x12&\n" +
-	"\bteachers\x18\x01 \x03(\v2\n" +
-	".main.ExecR\bteachers\"!\n" +
-	"\x06ExecId\x12\x17\n" +
-	"\aexec_id\x18\x01 \x01(\tR\x06execId2\xbb\x04\n" +
+	"\x0finactive_status\x18\f \x01(\tR\x0einactiveStatus\")\n" +
+	"\x05Execs\x12 \n" +
+	"\x05execs\x18\x01 \x03(\v2\n" +
+	".main.ExecR\x05execs\"\"\n" +
+	"\aExecIds\x12\x17\n" +
+	"\aexec_id\x18\x01 \x03(\tR\x06execId2\xbd\x04\n" +
 	"\vExecService\x12*\n" +
 	"\bGetExecs\x12\x11.main.GetExecsReq\x1a\v.main.Execs\x12$\n" +
 	"\bAddExecs\x12\v.main.Execs\x1a\v.main.Execs\x12'\n" +
-	"\vUpdateExecs\x12\v.main.Execs\x1a\v.main.Execs\x125\n" +
-	"\vDeleteExecs\x12\v.main.Execs\x1a\x19.main.DeleteExecsResponse\x12/\n" +
+	"\vUpdateExecs\x12\v.main.Execs\x1a\v.main.Execs\x127\n" +
+	"\vDeleteExecs\x12\r.main.ExecIds\x1a\x19.main.DeleteExecsResponse\x12/\n" +
 	"\x05Login\x12\x12.main.ExecLoginReq\x1a\x12.main.ExecLoginRes\x12.\n" +
 	"\x06Logout\x12\x0e.main.EmptyReq\x1a\x14.main.ExecLogoutResp\x12J\n" +
 	"\x0eUpdatePassword\x12\x1b.main.ExecUpdatePasswordReq\x1a\x1b.main.ExecUpdatePasswordRes\x12C\n" +
@@ -884,7 +883,7 @@ var file_execs_proto_goTypes = []any{
 	(*GetExecsReq)(nil),           // 9: main.GetExecsReq
 	(*Exec)(nil),                  // 10: main.Exec
 	(*Execs)(nil),                 // 11: main.Execs
-	(*ExecId)(nil),                // 12: main.ExecId
+	(*ExecIds)(nil),               // 12: main.ExecIds
 	(*SortField)(nil),             // 13: main.SortField
 	(*EmptyReq)(nil),              // 14: main.EmptyReq
 	(*ConfirmationResp)(nil),      // 15: main.ConfirmationResp
@@ -892,11 +891,11 @@ var file_execs_proto_goTypes = []any{
 var file_execs_proto_depIdxs = []int32{
 	10, // 0: main.GetExecsReq.exec:type_name -> main.Exec
 	13, // 1: main.GetExecsReq.sort_by:type_name -> main.SortField
-	10, // 2: main.Execs.teachers:type_name -> main.Exec
+	10, // 2: main.Execs.execs:type_name -> main.Exec
 	9,  // 3: main.ExecService.GetExecs:input_type -> main.GetExecsReq
 	11, // 4: main.ExecService.AddExecs:input_type -> main.Execs
 	11, // 5: main.ExecService.UpdateExecs:input_type -> main.Execs
-	11, // 6: main.ExecService.DeleteExecs:input_type -> main.Execs
+	12, // 6: main.ExecService.DeleteExecs:input_type -> main.ExecIds
 	0,  // 7: main.ExecService.Login:input_type -> main.ExecLoginReq
 	14, // 8: main.ExecService.Logout:input_type -> main.EmptyReq
 	5,  // 9: main.ExecService.UpdatePassword:input_type -> main.ExecUpdatePasswordReq

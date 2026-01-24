@@ -38,7 +38,7 @@ type ExecServiceClient interface {
 	GetExecs(ctx context.Context, in *GetExecsReq, opts ...grpc.CallOption) (*Execs, error)
 	AddExecs(ctx context.Context, in *Execs, opts ...grpc.CallOption) (*Execs, error)
 	UpdateExecs(ctx context.Context, in *Execs, opts ...grpc.CallOption) (*Execs, error)
-	DeleteExecs(ctx context.Context, in *Execs, opts ...grpc.CallOption) (*DeleteExecsResponse, error)
+	DeleteExecs(ctx context.Context, in *ExecIds, opts ...grpc.CallOption) (*DeleteExecsResponse, error)
 	Login(ctx context.Context, in *ExecLoginReq, opts ...grpc.CallOption) (*ExecLoginRes, error)
 	Logout(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ExecLogoutResp, error)
 	UpdatePassword(ctx context.Context, in *ExecUpdatePasswordReq, opts ...grpc.CallOption) (*ExecUpdatePasswordRes, error)
@@ -85,7 +85,7 @@ func (c *execServiceClient) UpdateExecs(ctx context.Context, in *Execs, opts ...
 	return out, nil
 }
 
-func (c *execServiceClient) DeleteExecs(ctx context.Context, in *Execs, opts ...grpc.CallOption) (*DeleteExecsResponse, error) {
+func (c *execServiceClient) DeleteExecs(ctx context.Context, in *ExecIds, opts ...grpc.CallOption) (*DeleteExecsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteExecsResponse)
 	err := c.cc.Invoke(ctx, ExecService_DeleteExecs_FullMethodName, in, out, cOpts...)
@@ -162,7 +162,7 @@ type ExecServiceServer interface {
 	GetExecs(context.Context, *GetExecsReq) (*Execs, error)
 	AddExecs(context.Context, *Execs) (*Execs, error)
 	UpdateExecs(context.Context, *Execs) (*Execs, error)
-	DeleteExecs(context.Context, *Execs) (*DeleteExecsResponse, error)
+	DeleteExecs(context.Context, *ExecIds) (*DeleteExecsResponse, error)
 	Login(context.Context, *ExecLoginReq) (*ExecLoginRes, error)
 	Logout(context.Context, *EmptyReq) (*ExecLogoutResp, error)
 	UpdatePassword(context.Context, *ExecUpdatePasswordReq) (*ExecUpdatePasswordRes, error)
@@ -188,7 +188,7 @@ func (UnimplementedExecServiceServer) AddExecs(context.Context, *Execs) (*Execs,
 func (UnimplementedExecServiceServer) UpdateExecs(context.Context, *Execs) (*Execs, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateExecs not implemented")
 }
-func (UnimplementedExecServiceServer) DeleteExecs(context.Context, *Execs) (*DeleteExecsResponse, error) {
+func (UnimplementedExecServiceServer) DeleteExecs(context.Context, *ExecIds) (*DeleteExecsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteExecs not implemented")
 }
 func (UnimplementedExecServiceServer) Login(context.Context, *ExecLoginReq) (*ExecLoginRes, error) {
@@ -285,7 +285,7 @@ func _ExecService_UpdateExecs_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _ExecService_DeleteExecs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Execs)
+	in := new(ExecIds)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -297,7 +297,7 @@ func _ExecService_DeleteExecs_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: ExecService_DeleteExecs_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecServiceServer).DeleteExecs(ctx, req.(*Execs))
+		return srv.(ExecServiceServer).DeleteExecs(ctx, req.(*ExecIds))
 	}
 	return interceptor(ctx, in, info, handler)
 }

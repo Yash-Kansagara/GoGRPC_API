@@ -12,6 +12,8 @@ import (
 
 var MongoClient *mongo.Client
 var TeachersCollection *mongo.Collection
+var StudentsCollection *mongo.Collection
+var ExecsCollection *mongo.Collection
 
 func InitializeMongoDBClient() (*mongo.Client, error) {
 	conenctionString := os.Getenv("MONGO_CONN_STR")
@@ -31,6 +33,9 @@ func InitializeMongoDBClient() (*mongo.Client, error) {
 
 	log.Println("Connected to MongoDB!")
 
-	TeachersCollection = mongoClient.Database("SchoolDB").Collection("teachers")
+	db := mongoClient.Database("SchoolDB")
+	TeachersCollection = db.Collection("teachers")
+	StudentsCollection = db.Collection("students")
+	ExecsCollection = db.Collection("execs")
 	return mongoClient, nil
 }

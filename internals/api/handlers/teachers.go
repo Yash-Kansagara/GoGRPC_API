@@ -150,3 +150,94 @@ func (s *Server) UpdateTeachers(ctx context.Context, req *pb.Teachers) (*pb.Teac
 		Teachers: upddated,
 	}, nil
 }
+
+// GRPC Handler for getting students by class teacher
+func (s *Server) GetStudentsByClassTeacher(ctx context.Context, req *pb.TeacherId) (*pb.Students, error) {
+
+	teacher, err := GetTeacherById(ctx, req.TeacherId)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Error finding teacher with given teacher id")
+	}
+
+	if len(teacher.Class) == 0 {
+		return &pb.Students{
+			Students: nil,
+		}, utils.ErrorHandler(nil, "Teacher does not have class assigned")
+	}
+
+	studentsfilter := bson.M{"class": teacher.Class}
+
+	cursor, err := mongodb.StudentsCollection.Find(ctx, studentsfilter)
+	if err != nil {
+		return &pb.Students{
+			Students: nil,
+		}, utils.ErrorHandler(err, "Error finding students with given class")
+	}
+	defer cursor.Close(ctx)
+
+	students := &pb.Students{
+		Students: make([]*pb.Student, 0),
+	}
+
+	temp := &models.Student{}
+
+	for cursor.Next(ctx) {
+		err := cursor.Decode(temp)
+		if err != nil {
+			return nil, utils.ErrorHandler(err, "Error parsing cursor data")
+		}
+		pbTemp := &pb.Student{}
+		err = utils.CopyValues(temp, pbTemp)
+		if err != nil {
+			return nil, utils.ErrorHandler(err, "Error copying values")
+		}
+		students.Students = append(students.Students, pbTemp)
+	}
+	if err := cursor.Err(); err != nil {
+		return &pb.Students{
+			Students: nil,
+		}, utils.ErrorHandler(err, "Cursor Error finding students with given class")
+	}
+
+	return students, nil
+}
+
+// GRPC Handler for getting student count by teacher
+func (s *Server) GetStudentCountByTeacher(ctx context.Context, req *pb.TeacherId) (*pb.StudentCount, error) {
+	teacher, err := GetTeacherById(ctx, req.TeacherId)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Error finding teacher with given teacher id")
+	}
+	if len(teacher.Class) == 0 {
+		return &pb.StudentCount{
+			Count: 0,
+		}, utils.ErrorHandler(nil, "Teacher does not have class assigned")
+	}
+
+	filter := bson.M{"class": teacher.Class}
+	count, err := mongodb.StudentsCollection.CountDocuments(ctx, filter)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Failed to fetch count")
+	}
+	return &pb.StudentCount{
+		Count: int32(count),
+	}, nil
+}
+
+// helper function to get teacher by id
+func GetTeacherById(ctx context.Context, teacherId string) (*models.Teacher, error) {
+	teacherObjectId, err := bson.ObjectIDFromHex(teacherId)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Invalid teacher id")
+	}
+	filter := bson.M{"_id": teacherObjectId}
+	res := mongodb.TeachersCollection.FindOne(ctx, filter)
+	if err := res.Err(); err != nil {
+		return nil, utils.ErrorHandler(err, "Error finding teacher with given teacher id")
+	}
+	teacher := models.Teacher{}
+	if err := res.Decode(&teacher); err != nil {
+		return nil, utils.ErrorHandler(err, "Error decoding teacher")
+	}
+	return &teacher, nil
+}

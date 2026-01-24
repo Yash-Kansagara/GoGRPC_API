@@ -21,27 +21,27 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type StudentId struct {
+type StudentIds struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	StudentId     string                 `protobuf:"bytes,1,opt,name=student_id,json=studentId,proto3" json:"student_id,omitempty"`
+	StudentId     []string               `protobuf:"bytes,1,rep,name=student_id,json=studentId,proto3" json:"student_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StudentId) Reset() {
-	*x = StudentId{}
+func (x *StudentIds) Reset() {
+	*x = StudentIds{}
 	mi := &file_students_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *StudentId) String() string {
+func (x *StudentIds) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StudentId) ProtoMessage() {}
+func (*StudentIds) ProtoMessage() {}
 
-func (x *StudentId) ProtoReflect() protoreflect.Message {
+func (x *StudentIds) ProtoReflect() protoreflect.Message {
 	mi := &file_students_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,22 +53,22 @@ func (x *StudentId) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use StudentId.ProtoReflect.Descriptor instead.
-func (*StudentId) Descriptor() ([]byte, []int) {
+// Deprecated: Use StudentIds.ProtoReflect.Descriptor instead.
+func (*StudentIds) Descriptor() ([]byte, []int) {
 	return file_students_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *StudentId) GetStudentId() string {
+func (x *StudentIds) GetStudentId() []string {
 	if x != nil {
 		return x.StudentId
 	}
-	return ""
+	return nil
 }
 
 type DeleteStudentResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	DeletedId     []string               `protobuf:"bytes,2,rep,name=deleted_id,json=deletedId,proto3" json:"deleted_id,omitempty"`
+	DeletedCount  int32                  `protobuf:"varint,2,opt,name=deleted_count,json=deletedCount,proto3" json:"deleted_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -110,11 +110,11 @@ func (x *DeleteStudentResponse) GetStatus() string {
 	return ""
 }
 
-func (x *DeleteStudentResponse) GetDeletedId() []string {
+func (x *DeleteStudentResponse) GetDeletedCount() int32 {
 	if x != nil {
-		return x.DeletedId
+		return x.DeletedCount
 	}
-	return nil
+	return 0
 }
 
 type GetStudentsReq struct {
@@ -271,7 +271,7 @@ func (x *Student) GetSubject() string {
 
 type Students struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Teachers      []*Student             `protobuf:"bytes,1,rep,name=teachers,proto3" json:"teachers,omitempty"`
+	Students      []*Student             `protobuf:"bytes,1,rep,name=students,proto3" json:"students,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -306,9 +306,9 @@ func (*Students) Descriptor() ([]byte, []int) {
 	return file_students_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *Students) GetTeachers() []*Student {
+func (x *Students) GetStudents() []*Student {
 	if x != nil {
-		return x.Teachers
+		return x.Students
 	}
 	return nil
 }
@@ -317,14 +317,14 @@ var File_students_proto protoreflect.FileDescriptor
 
 const file_students_proto_rawDesc = "" +
 	"\n" +
-	"\x0estudents.proto\x12\x04main\x1a\fcommon.proto\"*\n" +
-	"\tStudentId\x12\x1d\n" +
+	"\x0estudents.proto\x12\x04main\x1a\fcommon.proto\"+\n" +
 	"\n" +
-	"student_id\x18\x01 \x01(\tR\tstudentId\"N\n" +
+	"StudentIds\x12\x1d\n" +
+	"\n" +
+	"student_id\x18\x01 \x03(\tR\tstudentId\"T\n" +
 	"\x15DeleteStudentResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\n" +
-	"deleted_id\x18\x02 \x03(\tR\tdeletedId\"\xa1\x01\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12#\n" +
+	"\rdeleted_count\x18\x02 \x01(\x05R\fdeletedCount\"\xa1\x01\n" +
 	"\x0eGetStudentsReq\x12'\n" +
 	"\astudent\x18\x01 \x01(\v2\r.main.StudentR\astudent\x12(\n" +
 	"\asort_by\x18\x02 \x03(\v2\x0f.main.SortFieldR\x06sortBy\x12\x1f\n" +
@@ -340,12 +340,12 @@ const file_students_proto_rawDesc = "" +
 	"\x05class\x18\x05 \x01(\tR\x05class\x12\x18\n" +
 	"\asubject\x18\x06 \x01(\tR\asubject\"5\n" +
 	"\bStudents\x12)\n" +
-	"\bteachers\x18\x01 \x03(\v2\r.main.StudentR\bteachers2\xe5\x01\n" +
+	"\bstudents\x18\x01 \x03(\v2\r.main.StudentR\bstudents2\xe7\x01\n" +
 	"\x0eStudentService\x123\n" +
 	"\vGetStudents\x12\x14.main.GetStudentsReq\x1a\x0e.main.Students\x12-\n" +
 	"\vAddStudents\x12\x0e.main.Students\x1a\x0e.main.Students\x120\n" +
-	"\x0eUpdateStudents\x12\x0e.main.Students\x1a\x0e.main.Students\x12=\n" +
-	"\x0eDeleteStudents\x12\x0e.main.Students\x1a\x1b.main.DeleteStudentResponseB\x16Z\x14/proto/gen;grpcapipbb\x06proto3"
+	"\x0eUpdateStudents\x12\x0e.main.Students\x1a\x0e.main.Students\x12?\n" +
+	"\x0eDeleteStudents\x12\x10.main.StudentIds\x1a\x1b.main.DeleteStudentResponseB\x16Z\x14/proto/gen;grpcapipbb\x06proto3"
 
 var (
 	file_students_proto_rawDescOnce sync.Once
@@ -361,7 +361,7 @@ func file_students_proto_rawDescGZIP() []byte {
 
 var file_students_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_students_proto_goTypes = []any{
-	(*StudentId)(nil),             // 0: main.StudentId
+	(*StudentIds)(nil),            // 0: main.StudentIds
 	(*DeleteStudentResponse)(nil), // 1: main.DeleteStudentResponse
 	(*GetStudentsReq)(nil),        // 2: main.GetStudentsReq
 	(*Student)(nil),               // 3: main.Student
@@ -371,11 +371,11 @@ var file_students_proto_goTypes = []any{
 var file_students_proto_depIdxs = []int32{
 	3, // 0: main.GetStudentsReq.student:type_name -> main.Student
 	5, // 1: main.GetStudentsReq.sort_by:type_name -> main.SortField
-	3, // 2: main.Students.teachers:type_name -> main.Student
+	3, // 2: main.Students.students:type_name -> main.Student
 	2, // 3: main.StudentService.GetStudents:input_type -> main.GetStudentsReq
 	4, // 4: main.StudentService.AddStudents:input_type -> main.Students
 	4, // 5: main.StudentService.UpdateStudents:input_type -> main.Students
-	4, // 6: main.StudentService.DeleteStudents:input_type -> main.Students
+	0, // 6: main.StudentService.DeleteStudents:input_type -> main.StudentIds
 	4, // 7: main.StudentService.GetStudents:output_type -> main.Students
 	4, // 8: main.StudentService.AddStudents:output_type -> main.Students
 	4, // 9: main.StudentService.UpdateStudents:output_type -> main.Students

@@ -32,7 +32,7 @@ type StudentServiceClient interface {
 	GetStudents(ctx context.Context, in *GetStudentsReq, opts ...grpc.CallOption) (*Students, error)
 	AddStudents(ctx context.Context, in *Students, opts ...grpc.CallOption) (*Students, error)
 	UpdateStudents(ctx context.Context, in *Students, opts ...grpc.CallOption) (*Students, error)
-	DeleteStudents(ctx context.Context, in *Students, opts ...grpc.CallOption) (*DeleteStudentResponse, error)
+	DeleteStudents(ctx context.Context, in *StudentIds, opts ...grpc.CallOption) (*DeleteStudentResponse, error)
 }
 
 type studentServiceClient struct {
@@ -73,7 +73,7 @@ func (c *studentServiceClient) UpdateStudents(ctx context.Context, in *Students,
 	return out, nil
 }
 
-func (c *studentServiceClient) DeleteStudents(ctx context.Context, in *Students, opts ...grpc.CallOption) (*DeleteStudentResponse, error) {
+func (c *studentServiceClient) DeleteStudents(ctx context.Context, in *StudentIds, opts ...grpc.CallOption) (*DeleteStudentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteStudentResponse)
 	err := c.cc.Invoke(ctx, StudentService_DeleteStudents_FullMethodName, in, out, cOpts...)
@@ -90,7 +90,7 @@ type StudentServiceServer interface {
 	GetStudents(context.Context, *GetStudentsReq) (*Students, error)
 	AddStudents(context.Context, *Students) (*Students, error)
 	UpdateStudents(context.Context, *Students) (*Students, error)
-	DeleteStudents(context.Context, *Students) (*DeleteStudentResponse, error)
+	DeleteStudents(context.Context, *StudentIds) (*DeleteStudentResponse, error)
 	mustEmbedUnimplementedStudentServiceServer()
 }
 
@@ -110,7 +110,7 @@ func (UnimplementedStudentServiceServer) AddStudents(context.Context, *Students)
 func (UnimplementedStudentServiceServer) UpdateStudents(context.Context, *Students) (*Students, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateStudents not implemented")
 }
-func (UnimplementedStudentServiceServer) DeleteStudents(context.Context, *Students) (*DeleteStudentResponse, error) {
+func (UnimplementedStudentServiceServer) DeleteStudents(context.Context, *StudentIds) (*DeleteStudentResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteStudents not implemented")
 }
 func (UnimplementedStudentServiceServer) mustEmbedUnimplementedStudentServiceServer() {}
@@ -189,7 +189,7 @@ func _StudentService_UpdateStudents_Handler(srv interface{}, ctx context.Context
 }
 
 func _StudentService_DeleteStudents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Students)
+	in := new(StudentIds)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func _StudentService_DeleteStudents_Handler(srv interface{}, ctx context.Context
 		FullMethod: StudentService_DeleteStudents_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StudentServiceServer).DeleteStudents(ctx, req.(*Students))
+		return srv.(StudentServiceServer).DeleteStudents(ctx, req.(*StudentIds))
 	}
 	return interceptor(ctx, in, info, handler)
 }
