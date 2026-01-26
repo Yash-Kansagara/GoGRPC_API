@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/Yash-Kansagara/GoGRPC_API/internals/api/handlers"
+	"github.com/Yash-Kansagara/GoGRPC_API/internals/api/interceptors"
 	"github.com/Yash-Kansagara/GoGRPC_API/internals/repositories/mongodb"
 	pb "github.com/Yash-Kansagara/GoGRPC_API/proto/gen"
 	"github.com/joho/godotenv"
@@ -30,7 +31,10 @@ func main() {
 	}
 
 	// create and serve GRPC services
-	grpcServer := grpc.NewServer()
+
+	interceptors.InitRateLimiter()
+	interceptors := grpc.ChainUnaryInterceptor(interceptors.RateLimitingInterceptor, interceptors.ResponseTimeInterceptor)
+	grpcServer := grpc.NewServer(interceptors)
 	serverInstance := &handlers.Server{}
 	pb.RegisterExecServiceServer(grpcServer, serverInstance)
 	pb.RegisterStudentServiceServer(grpcServer, serverInstance)

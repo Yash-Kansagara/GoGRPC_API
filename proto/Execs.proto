@@ -13,12 +13,12 @@ service ExecService {
   rpc UpdateExecs(Execs) returns (Execs);
   rpc DeleteExecs(ExecIds) returns (DeleteExecsResponse);
 
-  rpc Login(ExecLoginReq) returns (ExecLoginRes);
-  rpc Logout(EmptyReq) returns (ExecLogoutResp);
-  rpc UpdatePassword(ExecUpdatePasswordReq) returns (ExecUpdatePasswordRes);
-  rpc ResetPassword(ExecResetPasswordReq) returns (ConfirmationResp);
-  rpc ForgetPassword(ExecForgetPasswordReq) returns (ConfirmationResp);
-  rpc DeactivateUser(DeactivateUserReq) returns (ConfirmationResp);
+  rpc LoginExec(ExecLoginReq) returns (ExecLoginRes);
+  rpc LogoutExec(EmptyReq) returns (ExecLogoutResp);
+  rpc UpdatePasswordExec(ExecUpdatePasswordReq) returns (ExecUpdatePasswordRes);
+  rpc ResetPasswordExec(ExecResetPasswordReq) returns (ConfirmationResp);
+  rpc ForgetPasswordExec(ExecForgetPasswordReq) returns (ConfirmationResp);
+  rpc DeactivateUserExec(DeactivateUserReq) returns (ConfirmationResp);
 }
 
 //login
@@ -51,7 +51,7 @@ message ExecForgetPasswordReq {
 
 // update password
 message ExecUpdatePasswordReq {
-  string id = 1;
+  string username = 1;
   string current_password = 2;
   string new_password = 3;
 }
@@ -92,7 +92,7 @@ message Exec {
   string password_reset_token = 9;
   string password_reset_token_expires = 10;
   string role = 11;
-  string inactive_status = 12;
+  int32 inactive_status = 12;
 }
 
 message Execs {
@@ -101,4 +101,9 @@ message Execs {
 
 message ExecIds {
   repeated string exec_id = 1;
+}
+
+enum InActiveStatus {
+  NONE = 0;
+  INACTIVE = 1;
 }

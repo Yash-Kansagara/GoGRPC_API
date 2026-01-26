@@ -12,5 +12,5 @@ type Exec struct {
 	PasswordResetToken        string `bson:"password_reset_token"`
 	PasswordResetTokenExpires string `bson:"password_reset_token_expires"`
 	Role                      string `bson:"role"`
-	InactiveStatus            string `bson:"inactive_status"`
+	InactiveStatus            int32  `bson:"inactive_status"`
 }

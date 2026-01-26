@@ -22,8 +22,37 @@ func (s *Server) GetExecs(ctx context.Context, req *pb.GetExecsReq) (*pb.Execs, 
 	return mongodb.GetExecsFromDB(ctx, req)
 }
 
-// rpc UpdateExecs(Execs) returns(Execs);
 // GRPC Handler for updating execs
 func (s *Server) UpdateExecs(ctx context.Context, req *pb.Execs) (*pb.Execs, error) {
 	return mongodb.UpdateExecsInDB(ctx, req)
 }
+
+// GRPC handler for Logging in exec users
+func (s *Server) LoginExec(ctx context.Context, req *pb.ExecLoginReq) (*pb.ExecLoginRes, error) {
+	return mongodb.LoginExec(ctx, req)
+}
+
+// GRPC handler for Updateing password
+func (s *Server) UpdatePasswordExec(ctx context.Context, req *pb.ExecUpdatePasswordReq) (*pb.ExecUpdatePasswordRes, error) {
+	return mongodb.UpdatePasswordExec(ctx, req)
+}
+
+// GRPC handler to deactivate exec users
+func (s *Server) DeactivateUserExec(ctx context.Context, req *pb.DeactivateUserReq) (*pb.ConfirmationResp, error) {
+	return mongodb.DeactivateUserExec(ctx, req)
+}
+
+// GRPC handler for forget password
+func (s *Server) ForgetPasswordExec(ctx context.Context, req *pb.ExecForgetPasswordReq) (*pb.ConfirmationResp, error) {
+	return mongodb.ForgetPasswordExec(ctx, req)
+}
+
+// GRPC handler for reset password
+func (s *Server) ResetPasswordExec(ctx context.Context, req *pb.ExecResetPasswordReq) (*pb.ConfirmationResp, error) {
+	return mongodb.ResetPasswordExec(ctx, req)
+}
+
+/*
+	Not implemented Yet: TODO
+  rpc LogoutExec(EmptyReq) returns (ExecLogoutResp);
+*/

@@ -146,7 +146,6 @@ func UpdateTeachersInDB(ctx context.Context, req *pb.Teachers) (*pb.Teachers, er
 	}, nil
 }
 
-// GRPC Handler for getting students by class teacher
 func GetStudentsByClassTeacherFromDB(ctx context.Context, req *pb.TeacherId) (*pb.Students, error) {
 
 	teacher, err := GetTeacherById(ctx, req.TeacherId)
@@ -197,7 +196,6 @@ func GetStudentsByClassTeacherFromDB(ctx context.Context, req *pb.TeacherId) (*p
 	return students, nil
 }
 
-// GRPC Handler for getting student count by teacher
 func GetStudentCountByTeacherFromDB(ctx context.Context, req *pb.TeacherId) (*pb.StudentCount, error) {
 	teacher, err := GetTeacherById(ctx, req.TeacherId)
 	if err != nil {
