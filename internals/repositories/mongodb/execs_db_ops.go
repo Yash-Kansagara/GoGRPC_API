@@ -3,10 +3,12 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
 	"github.com/Yash-Kansagara/GoGRPC_API/internals/models"
+	tokendb "github.com/Yash-Kansagara/GoGRPC_API/internals/repositories/token_memory_db"
 	"github.com/Yash-Kansagara/GoGRPC_API/pkg/utils"
 	pb "github.com/Yash-Kansagara/GoGRPC_API/proto/gen"
 
@@ -180,14 +182,21 @@ func LoginExec(ctx context.Context, req *pb.ExecLoginReq) (*pb.ExecLoginRes, err
 			Message: "Invalid credentials",
 		}, utils.ErrorHandler(err, "Invalid credentials")
 	}
-	tokenStr, err := utils.GenerateJWT(exec.Username, exec.Id, exec.Email)
+	accessToken, err := utils.GenerateAccessToken(exec.Username, exec.Id, exec.Email)
 	if err != nil {
-		return nil, utils.ErrorHandler(err, "Error generating token")
+		return nil, utils.ErrorHandler(err, "Error generating access token")
 	}
+	refreshTokenStr, token, err := utils.GenerateRefreshToken(exec.Username, exec.Id, exec.Role)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Error generating refresh token")
+	}
+	log.Println("Adding token", "len", len(token.Signature), "token", string(token.Signature))
+	tokendb.AddToken(strings.Split(refreshTokenStr, ".")[2])
 	return &pb.ExecLoginRes{
-		Token:   tokenStr,
-		Success: isValid,
-		Message: "Login successful",
+		Token:        accessToken,
+		RefreshToken: refreshTokenStr,
+		Success:      isValid,
+		Message:      "Login successful",
 	}, nil
 }
 
@@ -217,7 +226,7 @@ func UpdatePasswordExec(ctx context.Context, req *pb.ExecUpdatePasswordReq) (*pb
 		return nil, utils.ErrorHandler(err, "Error updating exec password")
 	}
 	if res.MatchedCount == 1 {
-		token, err := utils.GenerateJWT(exec.Username, exec.Id, exec.Role)
+		token, err := utils.GenerateAccessToken(exec.Username, exec.Id, exec.Role)
 		if err != nil {
 			return nil, utils.ErrorHandler(err, "Failed to create new token for user")
 		}
@@ -424,5 +433,32 @@ func ResetPasswordExec(ctx context.Context, req *pb.ExecResetPasswordReq) (*pb.C
 	return &pb.ConfirmationResp{
 		Success: false,
 		Message: "Password not reset",
+	}, nil
+}
+
+func RefreshTokenExec(ctx context.Context, req *pb.ExecRefreshTokenReq) (*pb.ExecRefreshTokenRes, error) {
+	current := req.RefreshToken
+
+	// parse token, this checks expiray and signing method
+	refreshTokenClaims, _, err := utils.ParseRefreshToken(current)
+
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Invalid Refresh token")
+	}
+
+	// validate if refresh token exist in cache, i.e. not expired
+	_, ok := tokendb.GetToken(strings.Split(current, ".")[2])
+	if !ok {
+		return nil, utils.ErrorHandler(nil, "Invalid Refresh token")
+	}
+
+	// generate new access token
+	newAccessToken, err := utils.GenerateAccessToken(refreshTokenClaims.Username, refreshTokenClaims.UserId, refreshTokenClaims.Role)
+	if err != nil {
+		return nil, utils.ErrorHandler(err, "Error generating new access token")
+	}
+
+	return &pb.ExecRefreshTokenRes{
+		AccessToken: newAccessToken,
 	}, nil
 }

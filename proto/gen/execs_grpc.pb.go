@@ -29,6 +29,7 @@ const (
 	ExecService_ResetPasswordExec_FullMethodName  = "/main.ExecService/ResetPasswordExec"
 	ExecService_ForgetPasswordExec_FullMethodName = "/main.ExecService/ForgetPasswordExec"
 	ExecService_DeactivateUserExec_FullMethodName = "/main.ExecService/DeactivateUserExec"
+	ExecService_RefreshTokenExec_FullMethodName   = "/main.ExecService/RefreshTokenExec"
 )
 
 // ExecServiceClient is the client API for ExecService service.
@@ -45,6 +46,7 @@ type ExecServiceClient interface {
 	ResetPasswordExec(ctx context.Context, in *ExecResetPasswordReq, opts ...grpc.CallOption) (*ConfirmationResp, error)
 	ForgetPasswordExec(ctx context.Context, in *ExecForgetPasswordReq, opts ...grpc.CallOption) (*ConfirmationResp, error)
 	DeactivateUserExec(ctx context.Context, in *DeactivateUserReq, opts ...grpc.CallOption) (*ConfirmationResp, error)
+	RefreshTokenExec(ctx context.Context, in *ExecRefreshTokenReq, opts ...grpc.CallOption) (*ExecRefreshTokenRes, error)
 }
 
 type execServiceClient struct {
@@ -155,6 +157,16 @@ func (c *execServiceClient) DeactivateUserExec(ctx context.Context, in *Deactiva
 	return out, nil
 }
 
+func (c *execServiceClient) RefreshTokenExec(ctx context.Context, in *ExecRefreshTokenReq, opts ...grpc.CallOption) (*ExecRefreshTokenRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExecRefreshTokenRes)
+	err := c.cc.Invoke(ctx, ExecService_RefreshTokenExec_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExecServiceServer is the server API for ExecService service.
 // All implementations must embed UnimplementedExecServiceServer
 // for forward compatibility.
@@ -169,6 +181,7 @@ type ExecServiceServer interface {
 	ResetPasswordExec(context.Context, *ExecResetPasswordReq) (*ConfirmationResp, error)
 	ForgetPasswordExec(context.Context, *ExecForgetPasswordReq) (*ConfirmationResp, error)
 	DeactivateUserExec(context.Context, *DeactivateUserReq) (*ConfirmationResp, error)
+	RefreshTokenExec(context.Context, *ExecRefreshTokenReq) (*ExecRefreshTokenRes, error)
 	mustEmbedUnimplementedExecServiceServer()
 }
 
@@ -208,6 +221,9 @@ func (UnimplementedExecServiceServer) ForgetPasswordExec(context.Context, *ExecF
 }
 func (UnimplementedExecServiceServer) DeactivateUserExec(context.Context, *DeactivateUserReq) (*ConfirmationResp, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeactivateUserExec not implemented")
+}
+func (UnimplementedExecServiceServer) RefreshTokenExec(context.Context, *ExecRefreshTokenReq) (*ExecRefreshTokenRes, error) {
+	return nil, status.Error(codes.Unimplemented, "method RefreshTokenExec not implemented")
 }
 func (UnimplementedExecServiceServer) mustEmbedUnimplementedExecServiceServer() {}
 func (UnimplementedExecServiceServer) testEmbeddedByValue()                     {}
@@ -410,6 +426,24 @@ func _ExecService_DeactivateUserExec_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ExecService_RefreshTokenExec_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExecRefreshTokenReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExecServiceServer).RefreshTokenExec(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExecService_RefreshTokenExec_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExecServiceServer).RefreshTokenExec(ctx, req.(*ExecRefreshTokenReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ExecService_ServiceDesc is the grpc.ServiceDesc for ExecService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -456,6 +490,10 @@ var ExecService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeactivateUserExec",
 			Handler:    _ExecService_DeactivateUserExec_Handler,
+		},
+		{
+			MethodName: "RefreshTokenExec",
+			Handler:    _ExecService_RefreshTokenExec_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

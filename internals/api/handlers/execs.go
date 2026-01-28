@@ -52,6 +52,10 @@ func (s *Server) ResetPasswordExec(ctx context.Context, req *pb.ExecResetPasswor
 	return mongodb.ResetPasswordExec(ctx, req)
 }
 
+func (s *Server) RefreshTokenExec(ctx context.Context, req *pb.ExecRefreshTokenReq) (*pb.ExecRefreshTokenRes, error) {
+	return mongodb.RefreshTokenExec(ctx, req)
+}
+
 /*
 	Not implemented Yet: TODO
   rpc LogoutExec(EmptyReq) returns (ExecLogoutResp);
