@@ -12,6 +12,8 @@ func ResponseTimeInterceptor(ctx context.Context, req interface{}, info *grpc.Un
 	start := time.Now()
 	resp, err := handler(ctx, req)
 	end := time.Now()
+
+	// logging response time, could be reported to some monitoring tool
 	fmt.Println(info.FullMethod, end.Sub(start))
 	return resp, err
 }

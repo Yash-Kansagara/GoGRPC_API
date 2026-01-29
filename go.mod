@@ -3,6 +3,7 @@ module github.com/Yash-Kansagara/GoGRPC_API
 go 1.25.4
 
 require (
+	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver/v2 v2.4.2
@@ -13,7 +14,6 @@ require (
 )
 
 require (
-	github.com/allegro/bigcache/v3 v3.1.0 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect

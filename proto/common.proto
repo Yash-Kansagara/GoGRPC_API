@@ -4,21 +4,18 @@ package main;
 
 option go_package = "/proto/gen;grpcapipb";
 
-
-message SortField{
-    string field = 1;
-    Order order = 2;
+message SortField {
+  string field = 1;
+  Order order = 2;
 }
 
 enum Order {
-    ASC = 0;
-    DESC = 1;
+  ASC = 0;
+  DESC = 1;
 }
-message EmptyReq{
+message EmptyReq {}
 
-}
-
-message ConfirmationResp{
-    bool success = 1;
-    string message = 2;
+message ConfirmationResp {
+  bool success = 1;
+  string message = 2;
 }

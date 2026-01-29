@@ -41,7 +41,7 @@ type ExecServiceClient interface {
 	UpdateExecs(ctx context.Context, in *Execs, opts ...grpc.CallOption) (*Execs, error)
 	DeleteExecs(ctx context.Context, in *ExecIds, opts ...grpc.CallOption) (*DeleteExecsResponse, error)
 	LoginExec(ctx context.Context, in *ExecLoginReq, opts ...grpc.CallOption) (*ExecLoginRes, error)
-	LogoutExec(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ExecLogoutResp, error)
+	LogoutExec(ctx context.Context, in *ExecLogoutReq, opts ...grpc.CallOption) (*ExecLogoutResp, error)
 	UpdatePasswordExec(ctx context.Context, in *ExecUpdatePasswordReq, opts ...grpc.CallOption) (*ExecUpdatePasswordRes, error)
 	ResetPasswordExec(ctx context.Context, in *ExecResetPasswordReq, opts ...grpc.CallOption) (*ConfirmationResp, error)
 	ForgetPasswordExec(ctx context.Context, in *ExecForgetPasswordReq, opts ...grpc.CallOption) (*ConfirmationResp, error)
@@ -107,7 +107,7 @@ func (c *execServiceClient) LoginExec(ctx context.Context, in *ExecLoginReq, opt
 	return out, nil
 }
 
-func (c *execServiceClient) LogoutExec(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*ExecLogoutResp, error) {
+func (c *execServiceClient) LogoutExec(ctx context.Context, in *ExecLogoutReq, opts ...grpc.CallOption) (*ExecLogoutResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ExecLogoutResp)
 	err := c.cc.Invoke(ctx, ExecService_LogoutExec_FullMethodName, in, out, cOpts...)
@@ -176,7 +176,7 @@ type ExecServiceServer interface {
 	UpdateExecs(context.Context, *Execs) (*Execs, error)
 	DeleteExecs(context.Context, *ExecIds) (*DeleteExecsResponse, error)
 	LoginExec(context.Context, *ExecLoginReq) (*ExecLoginRes, error)
-	LogoutExec(context.Context, *EmptyReq) (*ExecLogoutResp, error)
+	LogoutExec(context.Context, *ExecLogoutReq) (*ExecLogoutResp, error)
 	UpdatePasswordExec(context.Context, *ExecUpdatePasswordReq) (*ExecUpdatePasswordRes, error)
 	ResetPasswordExec(context.Context, *ExecResetPasswordReq) (*ConfirmationResp, error)
 	ForgetPasswordExec(context.Context, *ExecForgetPasswordReq) (*ConfirmationResp, error)
@@ -207,7 +207,7 @@ func (UnimplementedExecServiceServer) DeleteExecs(context.Context, *ExecIds) (*D
 func (UnimplementedExecServiceServer) LoginExec(context.Context, *ExecLoginReq) (*ExecLoginRes, error) {
 	return nil, status.Error(codes.Unimplemented, "method LoginExec not implemented")
 }
-func (UnimplementedExecServiceServer) LogoutExec(context.Context, *EmptyReq) (*ExecLogoutResp, error) {
+func (UnimplementedExecServiceServer) LogoutExec(context.Context, *ExecLogoutReq) (*ExecLogoutResp, error) {
 	return nil, status.Error(codes.Unimplemented, "method LogoutExec not implemented")
 }
 func (UnimplementedExecServiceServer) UpdatePasswordExec(context.Context, *ExecUpdatePasswordReq) (*ExecUpdatePasswordRes, error) {
@@ -337,7 +337,7 @@ func _ExecService_LoginExec_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _ExecService_LogoutExec_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmptyReq)
+	in := new(ExecLogoutReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -349,7 +349,7 @@ func _ExecService_LogoutExec_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: ExecService_LogoutExec_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExecServiceServer).LogoutExec(ctx, req.(*EmptyReq))
+		return srv.(ExecServiceServer).LogoutExec(ctx, req.(*ExecLogoutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

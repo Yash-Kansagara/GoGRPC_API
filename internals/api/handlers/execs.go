@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/Yash-Kansagara/GoGRPC_API/internals/repositories/mongodb"
+	tokendb "github.com/Yash-Kansagara/GoGRPC_API/internals/repositories/token_memory_db"
 	pb "github.com/Yash-Kansagara/GoGRPC_API/proto/gen"
 )
 
@@ -52,11 +53,12 @@ func (s *Server) ResetPasswordExec(ctx context.Context, req *pb.ExecResetPasswor
 	return mongodb.ResetPasswordExec(ctx, req)
 }
 
+// GRPC handler for refresh token
 func (s *Server) RefreshTokenExec(ctx context.Context, req *pb.ExecRefreshTokenReq) (*pb.ExecRefreshTokenRes, error) {
-	return mongodb.RefreshTokenExec(ctx, req)
+	return tokendb.RefreshTokenExec(ctx, req)
 }
 
-/*
-	Not implemented Yet: TODO
-  rpc LogoutExec(EmptyReq) returns (ExecLogoutResp);
-*/
+// GRPC handler for logging out exec users
+func (s *Server) LogoutExec(ctx context.Context, req *pb.ExecLogoutReq) (*pb.ExecLogoutResp, error) {
+	return tokendb.LogoutExec(ctx, req)
+}

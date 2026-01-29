@@ -14,7 +14,7 @@ service ExecService {
   rpc DeleteExecs(ExecIds) returns (DeleteExecsResponse);
 
   rpc LoginExec(ExecLoginReq) returns (ExecLoginRes);
-  rpc LogoutExec(EmptyReq) returns (ExecLogoutResp);
+  rpc LogoutExec(ExecLogoutReq) returns (ExecLogoutResp);
   rpc UpdatePasswordExec(ExecUpdatePasswordReq) returns (ExecUpdatePasswordRes);
   rpc ResetPasswordExec(ExecResetPasswordReq) returns (ConfirmationResp);
   rpc ForgetPasswordExec(ExecForgetPasswordReq) returns (ConfirmationResp);
@@ -27,11 +27,15 @@ message ExecLoginReq {
   string username = 1;
   string password = 2;
 }
+message ExecLogoutReq {
+  string token = 1;
+}
 message ExecRefreshTokenReq {
   string refresh_token = 1;
 }
 message ExecRefreshTokenRes {
   string access_token = 1;
+  string refresh_token = 2;
 }
 message ExecLoginRes {
   string token = 1;

@@ -120,6 +120,50 @@ func (x *ExecLoginReq) GetPassword() string {
 	return ""
 }
 
+type ExecLogoutReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExecLogoutReq) Reset() {
+	*x = ExecLogoutReq{}
+	mi := &file_execs_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExecLogoutReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExecLogoutReq) ProtoMessage() {}
+
+func (x *ExecLogoutReq) ProtoReflect() protoreflect.Message {
+	mi := &file_execs_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExecLogoutReq.ProtoReflect.Descriptor instead.
+func (*ExecLogoutReq) Descriptor() ([]byte, []int) {
+	return file_execs_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ExecLogoutReq) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
 type ExecRefreshTokenReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
@@ -129,7 +173,7 @@ type ExecRefreshTokenReq struct {
 
 func (x *ExecRefreshTokenReq) Reset() {
 	*x = ExecRefreshTokenReq{}
-	mi := &file_execs_proto_msgTypes[1]
+	mi := &file_execs_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -141,7 +185,7 @@ func (x *ExecRefreshTokenReq) String() string {
 func (*ExecRefreshTokenReq) ProtoMessage() {}
 
 func (x *ExecRefreshTokenReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[1]
+	mi := &file_execs_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -154,7 +198,7 @@ func (x *ExecRefreshTokenReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecRefreshTokenReq.ProtoReflect.Descriptor instead.
 func (*ExecRefreshTokenReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{1}
+	return file_execs_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ExecRefreshTokenReq) GetRefreshToken() string {
@@ -167,13 +211,14 @@ func (x *ExecRefreshTokenReq) GetRefreshToken() string {
 type ExecRefreshTokenRes struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ExecRefreshTokenRes) Reset() {
 	*x = ExecRefreshTokenRes{}
-	mi := &file_execs_proto_msgTypes[2]
+	mi := &file_execs_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -185,7 +230,7 @@ func (x *ExecRefreshTokenRes) String() string {
 func (*ExecRefreshTokenRes) ProtoMessage() {}
 
 func (x *ExecRefreshTokenRes) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[2]
+	mi := &file_execs_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -198,12 +243,19 @@ func (x *ExecRefreshTokenRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecRefreshTokenRes.ProtoReflect.Descriptor instead.
 func (*ExecRefreshTokenRes) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{2}
+	return file_execs_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ExecRefreshTokenRes) GetAccessToken() string {
 	if x != nil {
 		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *ExecRefreshTokenRes) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
 	}
 	return ""
 }
@@ -220,7 +272,7 @@ type ExecLoginRes struct {
 
 func (x *ExecLoginRes) Reset() {
 	*x = ExecLoginRes{}
-	mi := &file_execs_proto_msgTypes[3]
+	mi := &file_execs_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -232,7 +284,7 @@ func (x *ExecLoginRes) String() string {
 func (*ExecLoginRes) ProtoMessage() {}
 
 func (x *ExecLoginRes) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[3]
+	mi := &file_execs_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,7 +297,7 @@ func (x *ExecLoginRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecLoginRes.ProtoReflect.Descriptor instead.
 func (*ExecLoginRes) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{3}
+	return file_execs_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ExecLoginRes) GetToken() string {
@@ -286,7 +338,7 @@ type ExecLogoutResp struct {
 
 func (x *ExecLogoutResp) Reset() {
 	*x = ExecLogoutResp{}
-	mi := &file_execs_proto_msgTypes[4]
+	mi := &file_execs_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -298,7 +350,7 @@ func (x *ExecLogoutResp) String() string {
 func (*ExecLogoutResp) ProtoMessage() {}
 
 func (x *ExecLogoutResp) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[4]
+	mi := &file_execs_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -311,7 +363,7 @@ func (x *ExecLogoutResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecLogoutResp.ProtoReflect.Descriptor instead.
 func (*ExecLogoutResp) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{4}
+	return file_execs_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ExecLogoutResp) GetLoggedOut() bool {
@@ -333,7 +385,7 @@ type ExecResetPasswordReq struct {
 
 func (x *ExecResetPasswordReq) Reset() {
 	*x = ExecResetPasswordReq{}
-	mi := &file_execs_proto_msgTypes[5]
+	mi := &file_execs_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -345,7 +397,7 @@ func (x *ExecResetPasswordReq) String() string {
 func (*ExecResetPasswordReq) ProtoMessage() {}
 
 func (x *ExecResetPasswordReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[5]
+	mi := &file_execs_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -358,7 +410,7 @@ func (x *ExecResetPasswordReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecResetPasswordReq.ProtoReflect.Descriptor instead.
 func (*ExecResetPasswordReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{5}
+	return file_execs_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ExecResetPasswordReq) GetNewPassword() string {
@@ -392,7 +444,7 @@ type ExecForgetPasswordReq struct {
 
 func (x *ExecForgetPasswordReq) Reset() {
 	*x = ExecForgetPasswordReq{}
-	mi := &file_execs_proto_msgTypes[6]
+	mi := &file_execs_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -404,7 +456,7 @@ func (x *ExecForgetPasswordReq) String() string {
 func (*ExecForgetPasswordReq) ProtoMessage() {}
 
 func (x *ExecForgetPasswordReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[6]
+	mi := &file_execs_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -417,7 +469,7 @@ func (x *ExecForgetPasswordReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecForgetPasswordReq.ProtoReflect.Descriptor instead.
 func (*ExecForgetPasswordReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{6}
+	return file_execs_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ExecForgetPasswordReq) GetEmail() string {
@@ -439,7 +491,7 @@ type ExecUpdatePasswordReq struct {
 
 func (x *ExecUpdatePasswordReq) Reset() {
 	*x = ExecUpdatePasswordReq{}
-	mi := &file_execs_proto_msgTypes[7]
+	mi := &file_execs_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -451,7 +503,7 @@ func (x *ExecUpdatePasswordReq) String() string {
 func (*ExecUpdatePasswordReq) ProtoMessage() {}
 
 func (x *ExecUpdatePasswordReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[7]
+	mi := &file_execs_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -464,7 +516,7 @@ func (x *ExecUpdatePasswordReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecUpdatePasswordReq.ProtoReflect.Descriptor instead.
 func (*ExecUpdatePasswordReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{7}
+	return file_execs_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ExecUpdatePasswordReq) GetUsername() string {
@@ -498,7 +550,7 @@ type ExecUpdatePasswordRes struct {
 
 func (x *ExecUpdatePasswordRes) Reset() {
 	*x = ExecUpdatePasswordRes{}
-	mi := &file_execs_proto_msgTypes[8]
+	mi := &file_execs_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -510,7 +562,7 @@ func (x *ExecUpdatePasswordRes) String() string {
 func (*ExecUpdatePasswordRes) ProtoMessage() {}
 
 func (x *ExecUpdatePasswordRes) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[8]
+	mi := &file_execs_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -523,7 +575,7 @@ func (x *ExecUpdatePasswordRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecUpdatePasswordRes.ProtoReflect.Descriptor instead.
 func (*ExecUpdatePasswordRes) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{8}
+	return file_execs_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ExecUpdatePasswordRes) GetSuccess() bool {
@@ -549,7 +601,7 @@ type DeactivateUserReq struct {
 
 func (x *DeactivateUserReq) Reset() {
 	*x = DeactivateUserReq{}
-	mi := &file_execs_proto_msgTypes[9]
+	mi := &file_execs_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -561,7 +613,7 @@ func (x *DeactivateUserReq) String() string {
 func (*DeactivateUserReq) ProtoMessage() {}
 
 func (x *DeactivateUserReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[9]
+	mi := &file_execs_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -574,7 +626,7 @@ func (x *DeactivateUserReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeactivateUserReq.ProtoReflect.Descriptor instead.
 func (*DeactivateUserReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{9}
+	return file_execs_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeactivateUserReq) GetUsername() string {
@@ -595,7 +647,7 @@ type DeleteExecsResponse struct {
 
 func (x *DeleteExecsResponse) Reset() {
 	*x = DeleteExecsResponse{}
-	mi := &file_execs_proto_msgTypes[10]
+	mi := &file_execs_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -607,7 +659,7 @@ func (x *DeleteExecsResponse) String() string {
 func (*DeleteExecsResponse) ProtoMessage() {}
 
 func (x *DeleteExecsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[10]
+	mi := &file_execs_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -620,7 +672,7 @@ func (x *DeleteExecsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteExecsResponse.ProtoReflect.Descriptor instead.
 func (*DeleteExecsResponse) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{10}
+	return file_execs_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteExecsResponse) GetStatus() string {
@@ -649,7 +701,7 @@ type GetExecsReq struct {
 
 func (x *GetExecsReq) Reset() {
 	*x = GetExecsReq{}
-	mi := &file_execs_proto_msgTypes[11]
+	mi := &file_execs_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -661,7 +713,7 @@ func (x *GetExecsReq) String() string {
 func (*GetExecsReq) ProtoMessage() {}
 
 func (x *GetExecsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[11]
+	mi := &file_execs_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -674,7 +726,7 @@ func (x *GetExecsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetExecsReq.ProtoReflect.Descriptor instead.
 func (*GetExecsReq) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{11}
+	return file_execs_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetExecsReq) GetExec() *Exec {
@@ -726,7 +778,7 @@ type Exec struct {
 
 func (x *Exec) Reset() {
 	*x = Exec{}
-	mi := &file_execs_proto_msgTypes[12]
+	mi := &file_execs_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -738,7 +790,7 @@ func (x *Exec) String() string {
 func (*Exec) ProtoMessage() {}
 
 func (x *Exec) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[12]
+	mi := &file_execs_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -751,7 +803,7 @@ func (x *Exec) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Exec.ProtoReflect.Descriptor instead.
 func (*Exec) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{12}
+	return file_execs_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *Exec) GetId() string {
@@ -847,7 +899,7 @@ type Execs struct {
 
 func (x *Execs) Reset() {
 	*x = Execs{}
-	mi := &file_execs_proto_msgTypes[13]
+	mi := &file_execs_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -859,7 +911,7 @@ func (x *Execs) String() string {
 func (*Execs) ProtoMessage() {}
 
 func (x *Execs) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[13]
+	mi := &file_execs_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -872,7 +924,7 @@ func (x *Execs) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Execs.ProtoReflect.Descriptor instead.
 func (*Execs) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{13}
+	return file_execs_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *Execs) GetExecs() []*Exec {
@@ -891,7 +943,7 @@ type ExecIds struct {
 
 func (x *ExecIds) Reset() {
 	*x = ExecIds{}
-	mi := &file_execs_proto_msgTypes[14]
+	mi := &file_execs_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -903,7 +955,7 @@ func (x *ExecIds) String() string {
 func (*ExecIds) ProtoMessage() {}
 
 func (x *ExecIds) ProtoReflect() protoreflect.Message {
-	mi := &file_execs_proto_msgTypes[14]
+	mi := &file_execs_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -916,7 +968,7 @@ func (x *ExecIds) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecIds.ProtoReflect.Descriptor instead.
 func (*ExecIds) Descriptor() ([]byte, []int) {
-	return file_execs_proto_rawDescGZIP(), []int{14}
+	return file_execs_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ExecIds) GetExecId() []string {
@@ -933,11 +985,14 @@ const file_execs_proto_rawDesc = "" +
 	"\vexecs.proto\x12\x04main\x1a\fcommon.proto\"F\n" +
 	"\fExecLoginReq\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\":\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"%\n" +
+	"\rExecLogoutReq\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\":\n" +
 	"\x13ExecRefreshTokenReq\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"8\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"]\n" +
 	"\x13ExecRefreshTokenRes\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"}\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"}\n" +
 	"\fExecLoginRes\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
@@ -994,15 +1049,15 @@ const file_execs_proto_rawDesc = "" +
 	"\aexec_id\x18\x01 \x03(\tR\x06execId*(\n" +
 	"\x0eInActiveStatus\x12\b\n" +
 	"\x04NONE\x10\x00\x12\f\n" +
-	"\bINACTIVE\x10\x012\x9f\x05\n" +
+	"\bINACTIVE\x10\x012\xa4\x05\n" +
 	"\vExecService\x12*\n" +
 	"\bGetExecs\x12\x11.main.GetExecsReq\x1a\v.main.Execs\x12$\n" +
 	"\bAddExecs\x12\v.main.Execs\x1a\v.main.Execs\x12'\n" +
 	"\vUpdateExecs\x12\v.main.Execs\x1a\v.main.Execs\x127\n" +
 	"\vDeleteExecs\x12\r.main.ExecIds\x1a\x19.main.DeleteExecsResponse\x123\n" +
-	"\tLoginExec\x12\x12.main.ExecLoginReq\x1a\x12.main.ExecLoginRes\x122\n" +
+	"\tLoginExec\x12\x12.main.ExecLoginReq\x1a\x12.main.ExecLoginRes\x127\n" +
 	"\n" +
-	"LogoutExec\x12\x0e.main.EmptyReq\x1a\x14.main.ExecLogoutResp\x12N\n" +
+	"LogoutExec\x12\x13.main.ExecLogoutReq\x1a\x14.main.ExecLogoutResp\x12N\n" +
 	"\x12UpdatePasswordExec\x12\x1b.main.ExecUpdatePasswordReq\x1a\x1b.main.ExecUpdatePasswordRes\x12G\n" +
 	"\x11ResetPasswordExec\x12\x1a.main.ExecResetPasswordReq\x1a\x16.main.ConfirmationResp\x12I\n" +
 	"\x12ForgetPasswordExec\x12\x1b.main.ExecForgetPasswordReq\x1a\x16.main.ConfirmationResp\x12E\n" +
@@ -1022,54 +1077,54 @@ func file_execs_proto_rawDescGZIP() []byte {
 }
 
 var file_execs_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_execs_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_execs_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_execs_proto_goTypes = []any{
 	(InActiveStatus)(0),           // 0: main.InActiveStatus
 	(*ExecLoginReq)(nil),          // 1: main.ExecLoginReq
-	(*ExecRefreshTokenReq)(nil),   // 2: main.ExecRefreshTokenReq
-	(*ExecRefreshTokenRes)(nil),   // 3: main.ExecRefreshTokenRes
-	(*ExecLoginRes)(nil),          // 4: main.ExecLoginRes
-	(*ExecLogoutResp)(nil),        // 5: main.ExecLogoutResp
-	(*ExecResetPasswordReq)(nil),  // 6: main.ExecResetPasswordReq
-	(*ExecForgetPasswordReq)(nil), // 7: main.ExecForgetPasswordReq
-	(*ExecUpdatePasswordReq)(nil), // 8: main.ExecUpdatePasswordReq
-	(*ExecUpdatePasswordRes)(nil), // 9: main.ExecUpdatePasswordRes
-	(*DeactivateUserReq)(nil),     // 10: main.DeactivateUserReq
-	(*DeleteExecsResponse)(nil),   // 11: main.DeleteExecsResponse
-	(*GetExecsReq)(nil),           // 12: main.GetExecsReq
-	(*Exec)(nil),                  // 13: main.Exec
-	(*Execs)(nil),                 // 14: main.Execs
-	(*ExecIds)(nil),               // 15: main.ExecIds
-	(*SortField)(nil),             // 16: main.SortField
-	(*EmptyReq)(nil),              // 17: main.EmptyReq
+	(*ExecLogoutReq)(nil),         // 2: main.ExecLogoutReq
+	(*ExecRefreshTokenReq)(nil),   // 3: main.ExecRefreshTokenReq
+	(*ExecRefreshTokenRes)(nil),   // 4: main.ExecRefreshTokenRes
+	(*ExecLoginRes)(nil),          // 5: main.ExecLoginRes
+	(*ExecLogoutResp)(nil),        // 6: main.ExecLogoutResp
+	(*ExecResetPasswordReq)(nil),  // 7: main.ExecResetPasswordReq
+	(*ExecForgetPasswordReq)(nil), // 8: main.ExecForgetPasswordReq
+	(*ExecUpdatePasswordReq)(nil), // 9: main.ExecUpdatePasswordReq
+	(*ExecUpdatePasswordRes)(nil), // 10: main.ExecUpdatePasswordRes
+	(*DeactivateUserReq)(nil),     // 11: main.DeactivateUserReq
+	(*DeleteExecsResponse)(nil),   // 12: main.DeleteExecsResponse
+	(*GetExecsReq)(nil),           // 13: main.GetExecsReq
+	(*Exec)(nil),                  // 14: main.Exec
+	(*Execs)(nil),                 // 15: main.Execs
+	(*ExecIds)(nil),               // 16: main.ExecIds
+	(*SortField)(nil),             // 17: main.SortField
 	(*ConfirmationResp)(nil),      // 18: main.ConfirmationResp
 }
 var file_execs_proto_depIdxs = []int32{
-	13, // 0: main.GetExecsReq.exec:type_name -> main.Exec
-	16, // 1: main.GetExecsReq.sort_by:type_name -> main.SortField
-	13, // 2: main.Execs.execs:type_name -> main.Exec
-	12, // 3: main.ExecService.GetExecs:input_type -> main.GetExecsReq
-	14, // 4: main.ExecService.AddExecs:input_type -> main.Execs
-	14, // 5: main.ExecService.UpdateExecs:input_type -> main.Execs
-	15, // 6: main.ExecService.DeleteExecs:input_type -> main.ExecIds
+	14, // 0: main.GetExecsReq.exec:type_name -> main.Exec
+	17, // 1: main.GetExecsReq.sort_by:type_name -> main.SortField
+	14, // 2: main.Execs.execs:type_name -> main.Exec
+	13, // 3: main.ExecService.GetExecs:input_type -> main.GetExecsReq
+	15, // 4: main.ExecService.AddExecs:input_type -> main.Execs
+	15, // 5: main.ExecService.UpdateExecs:input_type -> main.Execs
+	16, // 6: main.ExecService.DeleteExecs:input_type -> main.ExecIds
 	1,  // 7: main.ExecService.LoginExec:input_type -> main.ExecLoginReq
-	17, // 8: main.ExecService.LogoutExec:input_type -> main.EmptyReq
-	8,  // 9: main.ExecService.UpdatePasswordExec:input_type -> main.ExecUpdatePasswordReq
-	6,  // 10: main.ExecService.ResetPasswordExec:input_type -> main.ExecResetPasswordReq
-	7,  // 11: main.ExecService.ForgetPasswordExec:input_type -> main.ExecForgetPasswordReq
-	10, // 12: main.ExecService.DeactivateUserExec:input_type -> main.DeactivateUserReq
-	2,  // 13: main.ExecService.RefreshTokenExec:input_type -> main.ExecRefreshTokenReq
-	14, // 14: main.ExecService.GetExecs:output_type -> main.Execs
-	14, // 15: main.ExecService.AddExecs:output_type -> main.Execs
-	14, // 16: main.ExecService.UpdateExecs:output_type -> main.Execs
-	11, // 17: main.ExecService.DeleteExecs:output_type -> main.DeleteExecsResponse
-	4,  // 18: main.ExecService.LoginExec:output_type -> main.ExecLoginRes
-	5,  // 19: main.ExecService.LogoutExec:output_type -> main.ExecLogoutResp
-	9,  // 20: main.ExecService.UpdatePasswordExec:output_type -> main.ExecUpdatePasswordRes
+	2,  // 8: main.ExecService.LogoutExec:input_type -> main.ExecLogoutReq
+	9,  // 9: main.ExecService.UpdatePasswordExec:input_type -> main.ExecUpdatePasswordReq
+	7,  // 10: main.ExecService.ResetPasswordExec:input_type -> main.ExecResetPasswordReq
+	8,  // 11: main.ExecService.ForgetPasswordExec:input_type -> main.ExecForgetPasswordReq
+	11, // 12: main.ExecService.DeactivateUserExec:input_type -> main.DeactivateUserReq
+	3,  // 13: main.ExecService.RefreshTokenExec:input_type -> main.ExecRefreshTokenReq
+	15, // 14: main.ExecService.GetExecs:output_type -> main.Execs
+	15, // 15: main.ExecService.AddExecs:output_type -> main.Execs
+	15, // 16: main.ExecService.UpdateExecs:output_type -> main.Execs
+	12, // 17: main.ExecService.DeleteExecs:output_type -> main.DeleteExecsResponse
+	5,  // 18: main.ExecService.LoginExec:output_type -> main.ExecLoginRes
+	6,  // 19: main.ExecService.LogoutExec:output_type -> main.ExecLogoutResp
+	10, // 20: main.ExecService.UpdatePasswordExec:output_type -> main.ExecUpdatePasswordRes
 	18, // 21: main.ExecService.ResetPasswordExec:output_type -> main.ConfirmationResp
 	18, // 22: main.ExecService.ForgetPasswordExec:output_type -> main.ConfirmationResp
 	18, // 23: main.ExecService.DeactivateUserExec:output_type -> main.ConfirmationResp
-	3,  // 24: main.ExecService.RefreshTokenExec:output_type -> main.ExecRefreshTokenRes
+	4,  // 24: main.ExecService.RefreshTokenExec:output_type -> main.ExecRefreshTokenRes
 	14, // [14:25] is the sub-list for method output_type
 	3,  // [3:14] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
@@ -1089,7 +1144,7 @@ func file_execs_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_execs_proto_rawDesc), len(file_execs_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   15,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

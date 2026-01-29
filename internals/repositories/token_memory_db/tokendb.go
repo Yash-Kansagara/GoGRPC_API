@@ -20,11 +20,13 @@ func GetToken(token string) ([]byte, bool) {
 }
 
 func AddToken(token string) error {
+	log.Println("before adding token", Cache.Len())
 	log.Println("Adding token", token)
 	return Cache.Set(token, []byte(token))
 }
 
 func RemoveToken(token string) error {
+	log.Println("before removing token", Cache.Len())
 	return Cache.Delete(token)
 }
 
@@ -35,5 +37,6 @@ func Init() {
 	if err != nil {
 		log.Fatal("Failed to initialize bigcache for refresh tokens")
 	}
+
 	log.Println("Bigcache initialized for refresh tokens")
 }

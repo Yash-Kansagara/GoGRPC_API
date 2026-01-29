@@ -435,30 +435,3 @@ func ResetPasswordExec(ctx context.Context, req *pb.ExecResetPasswordReq) (*pb.C
 		Message: "Password not reset",
 	}, nil
 }
-
-func RefreshTokenExec(ctx context.Context, req *pb.ExecRefreshTokenReq) (*pb.ExecRefreshTokenRes, error) {
-	current := req.RefreshToken
-
-	// parse token, this checks expiray and signing method
-	refreshTokenClaims, _, err := utils.ParseRefreshToken(current)
-
-	if err != nil {
-		return nil, utils.ErrorHandler(err, "Invalid Refresh token")
-	}
-
-	// validate if refresh token exist in cache, i.e. not expired
-	_, ok := tokendb.GetToken(strings.Split(current, ".")[2])
-	if !ok {
-		return nil, utils.ErrorHandler(nil, "Invalid Refresh token")
-	}
-
-	// generate new access token
-	newAccessToken, err := utils.GenerateAccessToken(refreshTokenClaims.Username, refreshTokenClaims.UserId, refreshTokenClaims.Role)
-	if err != nil {
-		return nil, utils.ErrorHandler(err, "Error generating new access token")
-	}
-
-	return &pb.ExecRefreshTokenRes{
-		AccessToken: newAccessToken,
-	}, nil
-}
